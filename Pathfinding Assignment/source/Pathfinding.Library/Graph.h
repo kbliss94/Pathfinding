@@ -3,6 +3,7 @@
 #include "Point.h"
 #include "Node.h"
 #include <map>
+#include <iostream>
 
 namespace Library
 {
@@ -17,6 +18,10 @@ namespace Library
 		std::shared_ptr<Node> At(const int x, const int y) const;
 		bool Contains(const Point& location) const;
 		bool Contains(const int x, const int y) const;
+
+		//!Only draws a square grid
+		void Draw();
+		void DrawPath(std::deque<std::shared_ptr<Node>>& path);
 
 	private:
 		std::map<Point, std::shared_ptr<Node>> mNodes;

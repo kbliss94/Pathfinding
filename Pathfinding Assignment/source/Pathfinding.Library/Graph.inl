@@ -1,11 +1,13 @@
 #include "Graph.h"
 
+using namespace std;
+
 namespace Library
 {
 	inline const std::map<Point, std::shared_ptr<Node>>& Library::Graph::Nodes() const
 	{
 		return mNodes;
-	}	
+	}
 
 	inline std::shared_ptr<Node> Graph::At(const Point& location) const
 	{
@@ -25,5 +27,94 @@ namespace Library
 	inline bool Graph::Contains(const int x, const int y) const
 	{
 		return Contains(Point(x, y));
+	}
+
+	inline void Graph::Draw()
+	{
+		cout << " - : traversable space" << endl;
+		cout << " | : wall/obstacle" << endl << endl;
+
+		int gridWidth = (int)(pow(mNodes.size(), 0.5));
+
+		for (int j = 0; j < gridWidth; ++j)
+		{
+			cout << "  ";
+
+			for (int i = 0; i < gridWidth; ++i)
+			{
+				if (mNodes[Point(i, j)]->Type() == NodeType::Normal)
+				{
+					cout << "- ";
+				}
+				else
+				{
+					cout << "| ";
+				}
+			}
+
+			cout << endl;
+		}
+	}
+
+	inline void Graph::DrawPath(std::deque<std::shared_ptr<Node>>& path)
+	{
+		if (path.size() > 1)
+		{
+			std::map<Point, std::shared_ptr<Node>> gridPath = mNodes;
+		
+			gridPath[path.front()->Location()]->SetAsStart();
+			gridPath[path.back()->Location()]->SetAsEnd();
+
+			path.pop_front();
+			path.pop_back();
+
+			for (int i = 0; i < (int)(path.size()); ++i)
+			{
+				gridPath[path[i]->Location()]->SetAsPath();
+			}
+
+			cout << endl << " S : start node" << endl;
+			cout << " E : end node" << endl;
+			cout << " X : path" << endl << endl;
+
+			int gridWidth = (int)(pow(mNodes.size(), 0.5));
+
+			for (int j = 0; j < gridWidth; ++j)
+			{
+				cout << "  ";
+
+				for (int i = 0; i < gridWidth; ++i)
+				{
+					Node currentNode = *gridPath[Point(i, j)];
+
+					if (currentNode.Type() == NodeType::Normal)
+					{
+						cout << "- ";
+					}
+					else if (currentNode.Type() == NodeType::Path)
+					{
+						cout << "X ";
+					}
+					else if (currentNode.Type() == NodeType::Wall)
+					{
+						cout << "| ";
+					}
+					else if (currentNode.Type() == NodeType::Start)
+					{
+						cout << "S ";
+					}
+					else
+					{
+						cout << "E ";
+					}
+				}
+
+				cout << endl;
+			}
+		}
+		else
+		{
+			cout << endl << "No path found." << endl;
+		}
 	}
 }

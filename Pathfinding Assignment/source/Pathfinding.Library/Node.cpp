@@ -8,4 +8,23 @@ namespace Library
 	{
 		CoCreateGuid(&mID);
 	}
+
+	Node::Node(const Node& rhs)
+	{
+		*this = rhs;
+	}
+
+	Node& Node::operator=(const Node& rhs)
+	{
+		mID = rhs.mID;
+		mType = rhs.mType;
+		mLocation = rhs.mLocation;
+		mHeuristic = rhs.mHeuristic;
+		mPathCost = rhs.mPathCost;
+		mTotalCost = rhs.mTotalCost;
+		mNeighbors = rhs.mNeighbors;
+		mParent = rhs.mParent;
+
+		return *this;
+	}
 }

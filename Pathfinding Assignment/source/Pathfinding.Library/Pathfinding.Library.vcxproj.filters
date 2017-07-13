@@ -14,6 +14,9 @@
     <ClCompile Include="BreadthFirst.cpp">
       <Filter>Search Algorithms</Filter>
     </ClCompile>
+    <ClCompile Include="GreedyBestFirst.cpp">
+      <Filter>Search Algorithms</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -27,6 +30,9 @@
     </ClInclude>
     <ClInclude Include="StopWatch.h" />
     <ClInclude Include="BreadthFirst.h">
+      <Filter>Search Algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="GreedyBestFirst.h">
       <Filter>Search Algorithms</Filter>
     </ClInclude>
   </ItemGroup>

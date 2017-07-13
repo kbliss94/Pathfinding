@@ -9,6 +9,8 @@ namespace Library
 	class GridHelper final
 	{
 	public:
+		GridHelper() {};
+
 		static Graph LoadGridFromFile(const std::string& filename);
 		static Graph LoadGridFromFile(const std::string& filename, int32_t& graphWidth, int32_t& graphHeight);
 

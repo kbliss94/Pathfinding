@@ -10,12 +10,14 @@ namespace Library
 		//!Default constructor
 		BreadthFirst() {};
 
-		//operator=
-		
+		BreadthFirst(const BreadthFirst& rhs) = delete;
+
+		BreadthFirst& operator=(const BreadthFirst& rhs) = delete;
+
 		//!Destructor
 		~BreadthFirst() {};
 
-		//!Finds path to given end node when starting at the given start node
+		//!Finds path to given end node when starting at the given start node using the breadth-first pathfinding algorithm
 		/*!
 		Returns path between nodes if one exists. If one doesn't exist, the deque returned will only contain the start node.
 		*/

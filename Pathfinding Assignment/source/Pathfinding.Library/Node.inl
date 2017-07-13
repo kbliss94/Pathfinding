@@ -32,6 +32,21 @@ namespace Library
 		return mLocation;
 	}
 
+	inline void Node::SetAsStart()
+	{
+		mType = NodeType::Start;
+	}
+
+	inline void Node::SetAsEnd()
+	{
+		mType = NodeType::End;
+	}
+
+	inline void Node::SetAsPath()
+	{
+		mType = NodeType::Path;
+	}
+
 	inline float Node::PathCost() const
 	{
 		return mPathCost;

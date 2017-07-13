@@ -10,15 +10,20 @@ namespace Library
 	enum class NodeType
 	{
 		Normal = 0,
-		Wall = 1
+		Wall = 1,
+		Start = 2,
+		Path = 3,
+		End = 4
 	};
 
 	class Node final
 	{
 	public:
 		explicit Node(const Point& location, NodeType type = NodeType::Normal);
-		Node(const Node&) = delete;
-		Node& operator=(const Node&) = delete;
+		//Node(const Node&) = delete;
+		Node(const Node& rhs);
+		//Node& operator=(const Node&) = delete;
+		Node& operator=(const Node& rhs);
 		Node(Node&&) = delete;
 		Node& operator=(Node&&) = delete;
 		~Node() = default;
@@ -31,6 +36,10 @@ namespace Library
 		NodeType Type() const;
 		const Point& Location() const;
 		
+		void SetAsStart();
+		void SetAsEnd();
+		void SetAsPath();
+
 		float PathCost() const;
 		void SetPathCost(float value);
 
