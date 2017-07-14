@@ -39,6 +39,7 @@ namespace Library
 		void SetAsStart();
 		void SetAsEnd();
 		void SetAsPath();
+		void SetAsNormal();
 
 		float PathCost() const;
 		void SetPathCost(float value);

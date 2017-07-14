@@ -60,17 +60,12 @@ namespace Library
 	{
 		if (path.size() > 1)
 		{
-			std::map<Point, std::shared_ptr<Node>> gridPath = mNodes;
-		
-			gridPath[path.front()->Location()]->SetAsStart();
-			gridPath[path.back()->Location()]->SetAsEnd();
+			mNodes[path.front()->Location()]->SetAsStart();
+			mNodes[path.back()->Location()]->SetAsEnd();
 
-			path.pop_front();
-			path.pop_back();
-
-			for (int i = 0; i < (int)(path.size()); ++i)
+			for (int i = 1; i < (int)(path.size() - 1); ++i)
 			{
-				gridPath[path[i]->Location()]->SetAsPath();
+				mNodes[path[i]->Location()]->SetAsPath();
 			}
 
 			cout << endl << " S : start node" << endl;
@@ -85,7 +80,7 @@ namespace Library
 
 				for (int i = 0; i < gridWidth; ++i)
 				{
-					Node currentNode = *gridPath[Point(i, j)];
+					Node currentNode = *mNodes[Point(i, j)];
 
 					if (currentNode.Type() == NodeType::Normal)
 					{
@@ -110,6 +105,11 @@ namespace Library
 				}
 
 				cout << endl;
+			}
+
+			for (int i = 0; i < (int)(path.size()); ++i)
+			{
+				mNodes[path[i]->Location()]->SetAsNormal();
 			}
 		}
 		else

@@ -31,7 +31,6 @@ namespace Library
 						currentNeighbor->SetParent(currentNode);
 
 						//adding currentNode's neighbors to mFrontier
-						//mFrontier.push_front(currentNeighbor);
 						mFrontier.push_back(currentNeighbor);
 					}
 				}

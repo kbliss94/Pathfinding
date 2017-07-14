@@ -2,6 +2,10 @@
 
 #include "IPathFinder.h"
 
+/*
+Implementing the Greedy Best-First pathfinding algorithm using the Manhattan taxi-cab heuristic.
+*/
+
 namespace Library
 {
 	class GreedyBestFirst final : public IPathFinder
@@ -24,6 +28,8 @@ namespace Library
 		std::deque<std::shared_ptr<Node>> FindPath(std::shared_ptr<Node> start, std::shared_ptr<Node> end, std::set<std::shared_ptr<Node>>& closedSet) override;
 
 	private:
+		float CalculateHeuristic(Point node, Point end);
+
 		std::deque<std::shared_ptr<Node>> mFrontier;
 	};
 }

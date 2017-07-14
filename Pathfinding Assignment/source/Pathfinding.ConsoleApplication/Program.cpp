@@ -21,12 +21,13 @@ int main(int argc, char* argv[])
 	Graph grid;
 	StopWatch stopwatch;
 
-	//grid = gridHelper.LoadGridFromFile("Grid.grid");
-	grid = gridHelper.LoadGridFromFile("NoPathGrid.grid");
+	grid = gridHelper.LoadGridFromFile("Grid.grid");
+	//grid = gridHelper.LoadGridFromFile("NoPathGrid.grid");
 
 	grid.Draw();
 
 	BreadthFirst breadthFirst;
+	GreedyBestFirst greedyBestFirst;
 	std::set<std::shared_ptr<Node>> visitedNodes;
 	std::deque<std::shared_ptr<Node>> pathFound;
 
@@ -54,6 +55,18 @@ int main(int argc, char* argv[])
 	stopwatch.Reset();
 	pathFound.clear();
 	visitedNodes.clear();
+
+	stopwatch.Start();
+	pathFound = greedyBestFirst.FindPath(grid.At(startX, startY), grid.At(endX, endY), visitedNodes);
+	stopwatch.Stop();
+
+	cout << endl << "Path found using greedy best-first algorithm: " << endl;
+
+	//draw grid path found for greedy best-first algorithm
+	grid.DrawPath(pathFound);
+
+	cout << endl << "The algorithm took " << stopwatch.ElapsedMilliseconds().count() << " milliseconds and ";
+	cout << visitedNodes.size() << " nodes were visited." << endl << endl;
 
 	return 0;
 }

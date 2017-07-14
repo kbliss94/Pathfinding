@@ -47,6 +47,11 @@ namespace Library
 		mType = NodeType::Path;
 	}
 
+	inline void Node::SetAsNormal()
+	{
+		mType = NodeType::Normal;
+	}
+
 	inline float Node::PathCost() const
 	{
 		return mPathCost;
