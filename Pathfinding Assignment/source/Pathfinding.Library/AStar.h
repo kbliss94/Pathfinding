@@ -2,9 +2,7 @@
 
 #include "IPathFinder.h"
 
-/*
-Implementing the A star pathfinding algorithm.
-*/
+//!Implementing the A star pathfinding algorithm using the Manhattan taxi-cab heuristic.
 
 namespace Library
 {
@@ -14,8 +12,10 @@ namespace Library
 		//!Default constructor
 		AStar() {};
 
+		//!Copy constructor
 		AStar(const AStar& rhs) = delete;
 
+		//!Assignment operator
 		AStar& operator=(const AStar& rhs) = delete;
 
 		//!Destructor
@@ -28,7 +28,7 @@ namespace Library
 		std::deque<std::shared_ptr<Node>> FindPath(std::shared_ptr<Node> start, std::shared_ptr<Node> end, std::set<std::shared_ptr<Node>>& closedSet) override;
 
 	private:
-		float CalculateHeuristic(Point node, Point end);
+		virtual float CalculateHeuristic(Point node, Point end);
 
 		std::deque<std::shared_ptr<Node>> mFrontier;
 	};

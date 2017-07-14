@@ -3,18 +3,6 @@
 
 namespace Library
 {
-	GreedyBestFirst::GreedyBestFirst(const GreedyBestFirst& rhs)
-	{
-		*this = rhs;
-	}
-
-	GreedyBestFirst& GreedyBestFirst::operator=(const GreedyBestFirst& rhs)
-	{
-		mFrontier = rhs.mFrontier;
-
-		return *this;
-	}
-
 	std::deque<std::shared_ptr<Node>> GreedyBestFirst::FindPath(std::shared_ptr<Node> start, std::shared_ptr<Node> end, std::set<std::shared_ptr<Node>>& closedSet)
 	{
 		std::deque<std::shared_ptr<Node>> path;
@@ -26,29 +14,24 @@ namespace Library
 		{
 			currentNeighbor = start->Neighbors()[i].lock();
 
-			//setting the parent of currentNode's neighbors to currentNode
 			currentNeighbor->SetParent(currentNode);
-
 			currentNeighbor->SetHeuristic(CalculateHeuristic(currentNeighbor->Location(), end->Location()));
 			mFrontier.push_back(currentNeighbor);
 		}
 
 		closedSet.insert(start);
 
-		//enter loop
 		while (!mFrontier.empty())
 		{
-			//sort frontier (lowest heuristic to highest)
+			//sort frontier (lowest heuristic value to highest)
 			std::sort(mFrontier.begin(), mFrontier.end(), [](std::shared_ptr<Library::Node> a, std::shared_ptr<Library::Node> b)
 			{
 				return a->Heuristic() < b->Heuristic();
 			});
 
-			//set current node to front of frontier
 			currentNode = mFrontier.front();
-
-			//pop front of frontier
 			mFrontier.pop_front();
+			closedSet.insert(currentNode);
 
 			if (*currentNode != *end)
 			{
@@ -56,28 +39,18 @@ namespace Library
 				{
 					currentNeighbor = currentNode->Neighbors()[i].lock();
 
-					//check to make sure its neighbors aren't in the frontier or the closedSet
+					//checking to make sure the current neighbor isn't in mFrontier or closedSet
 					if ((std::find(mFrontier.begin(), mFrontier.end(), currentNeighbor) == mFrontier.end()) &&
 						(std::find(closedSet.begin(), closedSet.end(), currentNeighbor) == closedSet.end()))
 					{
-						//setting the parent of currentNode's neighbors to currentNode
 						currentNeighbor->SetParent(currentNode);
-
-						//calculate heuristic for neighbor
 						currentNeighbor->SetHeuristic(CalculateHeuristic(currentNeighbor->Location(), end->Location()));
-
-						//add it to the frontier
 						mFrontier.push_back(currentNeighbor);
 					}
 				}
-
-				//add current node to the closedSet
-				closedSet.insert(currentNode);
 			}
 			else
 			{
-				//early outing if end node is found
-				closedSet.insert(currentNode);
 				break;
 			}
 		}

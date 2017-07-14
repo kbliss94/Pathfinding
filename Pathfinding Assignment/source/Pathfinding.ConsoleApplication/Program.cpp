@@ -12,11 +12,6 @@ int main(int argc, char* argv[])
 	UNREFERENCED_PARAMETER(argc);
 	UNREFERENCED_PARAMETER(argv);
 
-	//use grid helper to create a graph from a filename
-	//pass the node list to the path finder
-	//path finder returns the node path
-	//visualize the path (or not if one doesn't exist)
-
 	GridHelper gridHelper;
 	Graph grid;
 	StopWatch stopwatch;
@@ -26,13 +21,15 @@ int main(int argc, char* argv[])
 
 	grid.Draw();
 
-	BreadthFirst breadthFirst;
-	GreedyBestFirst greedyBestFirst;
-	Dijkstra dijkstra;
-
 	std::set<std::shared_ptr<Node>> visitedNodes;
 	std::deque<std::shared_ptr<Node>> pathFound;
-	std::vector<std::pair<string, std::shared_ptr<IPathFinder>>> algorithms;
+	std::vector<std::pair<string, std::shared_ptr<IPathFinder>>> algorithms = 
+	{
+		std::pair<string, std::shared_ptr<BreadthFirst>>("breadth-first", make_shared<BreadthFirst>()),
+		std::pair<string, std::shared_ptr<GreedyBestFirst>>("greedy best-first", make_shared<GreedyBestFirst>()),
+		std::pair<string, std::shared_ptr<Dijkstra>>("Dijkstra's", make_shared<Dijkstra>()),
+		std::pair<string, std::shared_ptr<AStar>>("A*", make_shared<AStar>())
+	};
 
 	int startX, startY, endX, endY;
 
@@ -41,10 +38,6 @@ int main(int argc, char* argv[])
 	cout << "Enter end coordinates (x y): ";
 	cin >> endX >> endY;
 	cout << endl;
-
-	algorithms.push_back(std::pair<string, std::shared_ptr<BreadthFirst>>("breadth-first", make_shared<BreadthFirst>(breadthFirst)));
-	algorithms.push_back(std::pair<string, std::shared_ptr<GreedyBestFirst>>("greedy best-first", make_shared<GreedyBestFirst>(greedyBestFirst)));
-	algorithms.push_back(std::pair<string, std::shared_ptr<Dijkstra>>("Dijkstra's", make_shared<Dijkstra>(dijkstra)));
 
 	for (int i = 0; i < (int)(algorithms.size()); ++i)
 	{
@@ -55,7 +48,7 @@ int main(int argc, char* argv[])
 
 		cout << endl << "Path found using " << algorithms[i].first << " algorithm: " << endl;
 
-		//draw grid path found
+		//drawing grid path found
 		grid.DrawPath(pathFound);
 
 		cout << endl << "The algorithm took " << stopwatch.ElapsedMilliseconds().count() << " milliseconds and ";
@@ -66,55 +59,6 @@ int main(int argc, char* argv[])
 		pathFound.clear();
 		visitedNodes.clear();
 	}
-
-
-
-	////using breadth-first algorithm
-	//stopwatch.Start();
-	//pathFound = breadthFirst.FindPath(grid.At(startX, startY), grid.At(endX, endY), visitedNodes);
-	//stopwatch.Stop();
-
-	//cout << endl << "Path found using breadth-first algorithm: " << endl;
-
-	////draw grid path found for breadth first algorithm
-	//grid.DrawPath(pathFound);
-
-	//cout << endl << "The algorithm took " << stopwatch.ElapsedMilliseconds().count() << " milliseconds and ";
-	//cout << visitedNodes.size() << " nodes were visited." << endl << endl;
-
-	////use greedy best-first algorithm
-	//stopwatch.Reset();
-	//pathFound.clear();
-	//visitedNodes.clear();
-
-	//stopwatch.Start();
-	//pathFound = greedyBestFirst.FindPath(grid.At(startX, startY), grid.At(endX, endY), visitedNodes);
-	//stopwatch.Stop();
-
-	//cout << endl << "Path found using greedy best-first algorithm: " << endl;
-
-	////draw grid path found for greedy best-first algorithm
-	//grid.DrawPath(pathFound);
-
-	//cout << endl << "The algorithm took " << stopwatch.ElapsedMilliseconds().count() << " milliseconds and ";
-	//cout << visitedNodes.size() << " nodes were visited." << endl << endl;
-
-	////using dijkstra's algorithm
-	//stopwatch.Reset();
-	//pathFound.clear();
-	//visitedNodes.clear();
-
-	//stopwatch.Start();
-	//pathFound = dijkstra.FindPath(grid.At(startX, startY), grid.At(endX, endY), visitedNodes);
-	//stopwatch.Stop();
-
-	//cout << endl << "Path found using Dijkstra's algorithm : " << endl;
-
-	////draw grid path found for dijkstra's algorithm
-	//grid.DrawPath(pathFound);
-
-	//cout << endl << "The algorithm took " << stopwatch.ElapsedMilliseconds().count() << " milliseconds and ";
-	//cout << visitedNodes.size() << " nodes were visited." << endl << endl;
 
 	return 0;
 }

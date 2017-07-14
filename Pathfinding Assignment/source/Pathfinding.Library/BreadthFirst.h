@@ -2,6 +2,8 @@
 
 #include "IPathFinder.h"
 
+//!Implementing the Breadth-First pathfinding algorithm.
+
 namespace Library
 {
 	class BreadthFirst final : public IPathFinder
@@ -10,9 +12,11 @@ namespace Library
 		//!Default constructor
 		BreadthFirst() {};
 
-		BreadthFirst(const BreadthFirst& rhs);
+		//!Copy constructor
+		BreadthFirst(const BreadthFirst& rhs) = delete;
 
-		BreadthFirst& operator=(const BreadthFirst& rhs);
+		//!Assignment operator
+		BreadthFirst& operator=(const BreadthFirst& rhs) = delete;
 
 		//!Destructor
 		~BreadthFirst() {};
@@ -21,17 +25,9 @@ namespace Library
 		/*!
 		Returns path between nodes if one exists. If one doesn't exist, the deque returned will only contain the start node.
 		*/
-
-		//////do i need to use override?
-
 		std::deque<std::shared_ptr<Node>> FindPath(std::shared_ptr<Node> start, std::shared_ptr<Node> end, std::set<std::shared_ptr<Node>>& closedSet) override;
 
-		//the below is implemented in IPathFinder
-		/*std::deque<std::shared_ptr<Node>> FindPath(std::shared_ptr<Node> start, std::shared_ptr<Node> end);*/
-
 	private:
-		//std::deque<std::weak_ptr<Node>> mFrontier;
 		std::deque<std::shared_ptr<Node>> mFrontier;
-
 	};
 }

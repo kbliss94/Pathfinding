@@ -2,9 +2,7 @@
 
 #include "IPathFinder.h"
 
-/*
-Implementing the Greedy Best-First pathfinding algorithm using the Manhattan taxi-cab heuristic.
-*/
+//!Implementing the Greedy Best-First pathfinding algorithm using the Manhattan taxi-cab heuristic.
 
 namespace Library
 {
@@ -14,9 +12,11 @@ namespace Library
 		//!Default constructor
 		GreedyBestFirst() {};
 
-		GreedyBestFirst(const GreedyBestFirst& rhs);
+		//!Copy constructor
+		GreedyBestFirst(const GreedyBestFirst& rhs) = delete;
 
-		GreedyBestFirst& operator=(const GreedyBestFirst& rhs);
+		//!Assignment operator
+		GreedyBestFirst& operator=(const GreedyBestFirst& rhs) = delete;
 
 		//!Destructor
 		~GreedyBestFirst() {};
