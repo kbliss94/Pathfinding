@@ -32,6 +32,7 @@ int main(int argc, char* argv[])
 
 	std::set<std::shared_ptr<Node>> visitedNodes;
 	std::deque<std::shared_ptr<Node>> pathFound;
+	std::vector<std::pair<string, std::shared_ptr<IPathFinder>>> algorithms;
 
 	int startX, startY, endX, endY;
 
@@ -41,52 +42,79 @@ int main(int argc, char* argv[])
 	cin >> endX >> endY;
 	cout << endl;
 
-	//using breadth-first algorithm
-	stopwatch.Start();
-	pathFound = breadthFirst.FindPath(grid.At(startX, startY), grid.At(endX, endY), visitedNodes);
-	stopwatch.Stop();
+	algorithms.push_back(std::pair<string, std::shared_ptr<BreadthFirst>>("breadth-first", make_shared<BreadthFirst>(breadthFirst)));
+	algorithms.push_back(std::pair<string, std::shared_ptr<GreedyBestFirst>>("greedy best-first", make_shared<GreedyBestFirst>(greedyBestFirst)));
+	algorithms.push_back(std::pair<string, std::shared_ptr<Dijkstra>>("Dijkstra's", make_shared<Dijkstra>(dijkstra)));
 
-	cout << endl << "Path found using breadth-first algorithm: " << endl;
+	for (int i = 0; i < (int)(algorithms.size()); ++i)
+	{
+		//using the algorithm
+		stopwatch.Start();
+		pathFound = algorithms[i].second->FindPath(grid.At(startX, startY), grid.At(endX, endY), visitedNodes);
+		stopwatch.Stop();
 
-	//draw grid path found for breadth first algorithm
-	grid.DrawPath(pathFound);
+		cout << endl << "Path found using " << algorithms[i].first << " algorithm: " << endl;
 
-	cout << endl << "The algorithm took " << stopwatch.ElapsedMilliseconds().count() << " milliseconds and ";
-	cout << visitedNodes.size() << " nodes were visited." << endl << endl;
+		//draw grid path found
+		grid.DrawPath(pathFound);
 
-	//use greedy best-first algorithm
-	stopwatch.Reset();
-	pathFound.clear();
-	visitedNodes.clear();
+		cout << endl << "The algorithm took " << stopwatch.ElapsedMilliseconds().count() << " milliseconds and ";
+		cout << visitedNodes.size() << " nodes were visited." << endl;
+		cout << "The path found was " << pathFound.size() << " nodes long." << endl << endl;
 
-	stopwatch.Start();
-	pathFound = greedyBestFirst.FindPath(grid.At(startX, startY), grid.At(endX, endY), visitedNodes);
-	stopwatch.Stop();
+		stopwatch.Reset();
+		pathFound.clear();
+		visitedNodes.clear();
+	}
 
-	cout << endl << "Path found using greedy best-first algorithm: " << endl;
 
-	//draw grid path found for greedy best-first algorithm
-	grid.DrawPath(pathFound);
 
-	cout << endl << "The algorithm took " << stopwatch.ElapsedMilliseconds().count() << " milliseconds and ";
-	cout << visitedNodes.size() << " nodes were visited." << endl << endl;
+	////using breadth-first algorithm
+	//stopwatch.Start();
+	//pathFound = breadthFirst.FindPath(grid.At(startX, startY), grid.At(endX, endY), visitedNodes);
+	//stopwatch.Stop();
 
-	//using dijkstra's algorithm
-	stopwatch.Reset();
-	pathFound.clear();
-	visitedNodes.clear();
+	//cout << endl << "Path found using breadth-first algorithm: " << endl;
 
-	stopwatch.Start();
-	pathFound = dijkstra.FindPath(grid.At(startX, startY), grid.At(endX, endY), visitedNodes);
-	stopwatch.Stop();
+	////draw grid path found for breadth first algorithm
+	//grid.DrawPath(pathFound);
 
-	cout << endl << "Path found using Dijkstra's algorithm : " << endl;
+	//cout << endl << "The algorithm took " << stopwatch.ElapsedMilliseconds().count() << " milliseconds and ";
+	//cout << visitedNodes.size() << " nodes were visited." << endl << endl;
 
-	//draw grid path found for dijkstra's algorithm
-	grid.DrawPath(pathFound);
+	////use greedy best-first algorithm
+	//stopwatch.Reset();
+	//pathFound.clear();
+	//visitedNodes.clear();
 
-	cout << endl << "The algorithm took " << stopwatch.ElapsedMilliseconds().count() << " milliseconds and ";
-	cout << visitedNodes.size() << " nodes were visited." << endl << endl;
+	//stopwatch.Start();
+	//pathFound = greedyBestFirst.FindPath(grid.At(startX, startY), grid.At(endX, endY), visitedNodes);
+	//stopwatch.Stop();
+
+	//cout << endl << "Path found using greedy best-first algorithm: " << endl;
+
+	////draw grid path found for greedy best-first algorithm
+	//grid.DrawPath(pathFound);
+
+	//cout << endl << "The algorithm took " << stopwatch.ElapsedMilliseconds().count() << " milliseconds and ";
+	//cout << visitedNodes.size() << " nodes were visited." << endl << endl;
+
+	////using dijkstra's algorithm
+	//stopwatch.Reset();
+	//pathFound.clear();
+	//visitedNodes.clear();
+
+	//stopwatch.Start();
+	//pathFound = dijkstra.FindPath(grid.At(startX, startY), grid.At(endX, endY), visitedNodes);
+	//stopwatch.Stop();
+
+	//cout << endl << "Path found using Dijkstra's algorithm : " << endl;
+
+	////draw grid path found for dijkstra's algorithm
+	//grid.DrawPath(pathFound);
+
+	//cout << endl << "The algorithm took " << stopwatch.ElapsedMilliseconds().count() << " milliseconds and ";
+	//cout << visitedNodes.size() << " nodes were visited." << endl << endl;
 
 	return 0;
 }

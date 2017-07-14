@@ -3,6 +3,18 @@
 
 namespace Library
 {
+	Dijkstra::Dijkstra(const Dijkstra& rhs)
+	{
+		*this = rhs;
+	}
+
+	Dijkstra& Dijkstra::operator=(const Dijkstra& rhs)
+	{
+		mFrontier = rhs.mFrontier;
+
+		return *this;
+	}
+
 	std::deque<std::shared_ptr<Node>> Dijkstra::FindPath(std::shared_ptr<Node> start, std::shared_ptr<Node> end, std::set<std::shared_ptr<Node>>& closedSet)
 	{
 		//uses breadth-first to expand the frontier
@@ -20,7 +32,7 @@ namespace Library
 			//sort frontier (lowest heuristic to highest)
 			std::sort(mFrontier.begin(), mFrontier.end(), [](std::shared_ptr<Library::Node> a, std::shared_ptr<Library::Node> b)
 			{
-				return a->PathCost() < b->PathCost();
+				return a->TotalCost() < b->TotalCost();
 			});
 
 			currentNode = mFrontier.front();
@@ -46,6 +58,7 @@ namespace Library
 						{
 							currentNeighbor->SetParent(currentNode);
 							currentNeighbor->SetPathCost(currentPathCost);
+							currentNeighbor->SetHeuristic(CalculateHeuristic(currentNeighbor->Location(), end->Location()));
 							mFrontier.push_front(currentNeighbor);
 						}
 						//if the neighbor is in the frontier, update its path cost if its bigger than the current path cost
@@ -88,5 +101,13 @@ namespace Library
 
 
 		return path;
+	}
+
+	float Dijkstra::CalculateHeuristic(Point node, Point end)
+	{
+		UNREFERENCED_PARAMETER(node);
+		UNREFERENCED_PARAMETER(end);
+
+		return 0;
 	}
 }

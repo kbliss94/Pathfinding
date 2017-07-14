@@ -3,6 +3,18 @@
 
 namespace Library
 {
+	BreadthFirst::BreadthFirst(const BreadthFirst& rhs)
+	{
+		*this = rhs;
+	}
+
+	BreadthFirst& BreadthFirst::operator=(const BreadthFirst& rhs)
+	{
+		mFrontier = rhs.mFrontier;
+
+		return *this;
+	}
+
 	std::deque<std::shared_ptr<Node>> BreadthFirst::FindPath(std::shared_ptr<Node> start, std::shared_ptr<Node> end, std::set<std::shared_ptr<Node>>& closedSet)
 	{
 		std::deque<std::shared_ptr<Node>> path;

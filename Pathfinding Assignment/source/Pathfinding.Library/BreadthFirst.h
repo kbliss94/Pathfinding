@@ -10,9 +10,9 @@ namespace Library
 		//!Default constructor
 		BreadthFirst() {};
 
-		BreadthFirst(const BreadthFirst& rhs) = delete;
+		BreadthFirst(const BreadthFirst& rhs);
 
-		BreadthFirst& operator=(const BreadthFirst& rhs) = delete;
+		BreadthFirst& operator=(const BreadthFirst& rhs);
 
 		//!Destructor
 		~BreadthFirst() {};

@@ -14,9 +14,9 @@ namespace Library
 		//!Default constructor
 		GreedyBestFirst() {};
 
-		GreedyBestFirst(const GreedyBestFirst& rhs) = delete;
+		GreedyBestFirst(const GreedyBestFirst& rhs);
 
-		GreedyBestFirst& operator=(const GreedyBestFirst& rhs) = delete;
+		GreedyBestFirst& operator=(const GreedyBestFirst& rhs);
 
 		//!Destructor
 		~GreedyBestFirst() {};

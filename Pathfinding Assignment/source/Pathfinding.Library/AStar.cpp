@@ -13,4 +13,9 @@ namespace Library
 
 		return path;
 	}
+
+	float AStar::CalculateHeuristic(Point node, Point end)
+	{
+		return (float)(abs(end.X() - node.X()) + abs(end.Y() - node.Y()));
+	}
 }

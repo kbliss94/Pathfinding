@@ -14,9 +14,9 @@ namespace Library
 		//!Default constructor
 		Dijkstra() {};
 
-		Dijkstra(const Dijkstra& rhs) = delete;
+		Dijkstra(const Dijkstra& rhs);
 
-		Dijkstra& operator=(const Dijkstra& rhs) = delete;
+		Dijkstra& operator=(const Dijkstra& rhs);
 
 		//!Destructor
 		~Dijkstra() {};
