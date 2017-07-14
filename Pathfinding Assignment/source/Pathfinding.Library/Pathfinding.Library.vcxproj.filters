@@ -17,6 +17,12 @@
     <ClCompile Include="GreedyBestFirst.cpp">
       <Filter>Search Algorithms</Filter>
     </ClCompile>
+    <ClCompile Include="AStar.cpp">
+      <Filter>Search Algorithms</Filter>
+    </ClCompile>
+    <ClCompile Include="Dijkstra.cpp">
+      <Filter>Search Algorithms</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -33,6 +39,12 @@
       <Filter>Search Algorithms</Filter>
     </ClInclude>
     <ClInclude Include="GreedyBestFirst.h">
+      <Filter>Search Algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="AStar.h">
+      <Filter>Search Algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="Dijkstra.h">
       <Filter>Search Algorithms</Filter>
     </ClInclude>
   </ItemGroup>

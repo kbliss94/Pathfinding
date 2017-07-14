@@ -37,3 +37,5 @@
 
 #include "BreadthFirst.h"
 #include "GreedyBestFirst.h"
+#include "Dijkstra.h"
+#include "AStar.h"

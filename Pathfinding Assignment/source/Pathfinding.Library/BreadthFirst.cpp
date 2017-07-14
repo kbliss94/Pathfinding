@@ -16,6 +16,7 @@ namespace Library
 
 			//remove current node from the front of mFrontier
 			mFrontier.pop_front();
+			closedSet.insert(currentNode);
 
 			if (*currentNode != *end)
 			{
@@ -36,12 +37,12 @@ namespace Library
 				}
 
 				//adding currentNode to closedSet
-				closedSet.insert(currentNode);
+				//closedSet.insert(currentNode);
 			}
 			else
 			{
 				//early outing if end node is found
-				closedSet.insert(currentNode);
+				//closedSet.insert(currentNode);
 				break;
 			}
 		}
